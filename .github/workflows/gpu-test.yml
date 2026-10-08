@@ -3,14 +3,14 @@ on: workflow_dispatch
 
 jobs:
   gpu-job:
-    runs-on: [self-hosted, windows, x64, gpu]
+    runs-on: [self-hosted, windows, x64]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Check GPU
         run: nvidia-smi
-        shell: pwsh
+        shell: powershell  # ← اینجا تغییر کرد (pwsh به powershell)
 
       - name: Check System Info
         run: |
@@ -18,4 +18,4 @@ jobs:
           Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores
           echo "RAM:"
           Get-CimInstance Win32_ComputerSystem | Select-Object TotalPhysicalMemory
-        shell: pwsh
+        shell: powershell  # ← اینجا هم تغییر کرد
