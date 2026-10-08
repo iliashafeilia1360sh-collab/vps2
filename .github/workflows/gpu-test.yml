@@ -1,0 +1,21 @@
+name: GPU Test
+on: workflow_dispatch
+
+jobs:
+  gpu-job:
+    runs-on: [self-hosted, windows, x64, gpu]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check GPU
+        run: nvidia-smi
+        shell: pwsh
+
+      - name: Check System Info
+        run: |
+          echo "CPU:"
+          Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores
+          echo "RAM:"
+          Get-CimInstance Win32_ComputerSystem | Select-Object TotalPhysicalMemory
+        shell: pwsh
